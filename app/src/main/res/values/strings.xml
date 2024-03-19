@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TwentyOneDays</string>
+        <string-array name="planets_array">
+            <item>Text</item>
+            <item>Video</item>
+            <item>Audio</item>
+            <item>Photo</item>
+            <item>File</item>
+        </string-array>
+</resources>

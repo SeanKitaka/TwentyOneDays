@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "434634305527",
+    "firebase_url": "https://twentyonedays-407c1-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "twentyonedays-407c1",
+    "storage_bucket": "twentyonedays-407c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434634305527:android:12fb74d638512ad0b988f2",
+        "android_client_info": {
+          "package_name": "com.example.twentyonedays"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs5CYTPZ5aZDyzcGHLreUgodh0-00HXOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
