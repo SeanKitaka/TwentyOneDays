@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">TwentyOneDays</string>
-        <string-array name="planets_array">
+        <string-array name="Types_array">
             <item>Text</item>
             <item>Video</item>
             <item>Audio</item>
             <item>Photo</item>
             <item>File</item>
         </string-array>
+
+    <string-array name="Freq_array">
+        <item>Daily</item>
+        <item>Every other day</item>
+        <item>Every week day</item>
+        <item>every 4 days</item>
+        <item>Every week</item>
+    </string-array>
 </resources>

@@ -58,7 +58,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/lightblue"/>
             <Spinner
-                android:id="@+id/frequency_spinner"
+                android:id="@+id/habit_frequency_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
