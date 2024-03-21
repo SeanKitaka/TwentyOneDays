@@ -22,8 +22,6 @@ public class SignUp extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
