@@ -72,6 +72,19 @@ typically feature clean and well-defined letterforms, which can improve readabil
 sizes and resolutions.
 
 ![img.png](img.png)
+
+To be a successful application, I would have to have a list of features that need to be implemented:
+
+- Basic authentication where a user can enter a name email, username and password and after registering,
+   are able to login with that information. 
+- A Habit system, a user is able to choose a specific habit that they want to record and the settings 
+  around when they want to be reminded about it. 
+
+There are more aspirational features that I would want to implement that would extend upon the features mentioned prior:
+
+- a Social system that allows users to search to see if their friends are using the application and then
+  add them, this will allow them to see their friends and if they are keeping on top of their habits.
+
 3. Application Implementation
    a. Examination of the basic functionalities implemented in the application, such as user authentication and personalized elements (timetable for the UoR Student app or levels for a game). Full-screen screen-
    shots should be provided to demonstrate the technical implementation of these features, facilitating review by displaying the code and its

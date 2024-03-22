@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.net.URI;
 
 public class Login extends AppCompatActivity {
 
@@ -50,8 +53,19 @@ public class Login extends AppCompatActivity {
         googleLoginBtn = findViewById(R.id.google_login_btn);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if(acct!=null){
-            navigateToSecondActivity();
+        if (acct != null) {
+            try {
+                String googleId = acct.getId();
+                String firstName = acct.getGivenName(); // Get first name
+                String email = acct.getEmail(); // Get email
+                String image = acct.getPhotoUrl().toString();
+                navigateToSecondActivity(googleId, firstName, email,image);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                // Handle if any of the account details are null
+                Toast.makeText(this, "Error getting account details", Toast.LENGTH_SHORT).show();
+                navigateToSecondActivity();
+            }
         }
         googleLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,17 +109,34 @@ public class Login extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                String googleId = account.getId();
+                String firstName = account.getGivenName(); // Get first name
+                String email = account.getEmail(); // Get email
+                String image = account.getPhotoUrl().toString();
+                navigateToSecondActivity(googleId, firstName, email,image);
+
                 task.getResult(ApiException.class);
-                navigateToSecondActivity();
+                navigateToSecondActivity(googleId,firstName,email,image);
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
 
     }
-    void navigateToSecondActivity(){
+
+    void navigateToSecondActivity() {
         finish();
         Intent intent = new Intent(Login.this, Dashboard.class);
+        startActivity(intent);
+    }
+    void navigateToSecondActivity(String googleId, String firstName, String email,String image) {
+        finish();
+        Intent intent = new Intent(Login.this, Dashboard.class);
+        intent.putExtra("googleId", googleId);
+        intent.putExtra("firstName", firstName); // Pass the first name
+        intent.putExtra("email", email); // Pass the email
+        intent.putExtra("image", image);
         startActivity(intent);
     }
 
