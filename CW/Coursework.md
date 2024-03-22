@@ -61,6 +61,8 @@ of the application. This is because the color blue is a 'cool' color, so will be
 for the users and the colour is often associated with stability and trustworthiness which will be beneficial
 in relation to the application as it will make users more comfortable in logging their data with this application.
 
+![blue colour pallette.png](blue%20colour%20pallette.png)
+
 I will try to use rounded edges and a more modern font family as rounded edges can improve usability
 by reducing the risk of accidental taps or swipes on sharp corners, especially on mobile devices where
 precision can be challenging. This can lead to a smoother and more frustration-free user experience,
@@ -69,6 +71,7 @@ legibility and readability in mind, making them suitable choices for digital int
 typically feature clean and well-defined letterforms, which can improve readability on various screen
 sizes and resolutions.
 
+![img.png](img.png)
 3. Application Implementation
    a. Examination of the basic functionalities implemented in the application, such as user authentication and personalized elements (timetable for the UoR Student app or levels for a game). Full-screen screen-
    shots should be provided to demonstrate the technical implementation of these features, facilitating review by displaying the code and its
