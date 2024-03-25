@@ -33,12 +33,23 @@
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:textColor="@color/lightblue"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Habit name"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                android:textColor="@color/lightblue"/>
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Habit type"
                 android:textSize="15sp"
+                android:layout_marginTop="20dp"
+
                 android:textAlignment="center"
                 android:textColor="@color/lightblue"/>
             <Spinner
@@ -58,14 +69,12 @@
                 android:textAlignment="center"
                 android:textColor="@color/lightblue"/>
             <Spinner
-                android:id="@+id/frequency_spinner"
+                android:id="@+id/habit_frequency_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/lightblueborder"
                 android:padding="8dp"/>
-
-            <!-- You can add additional UI elements for setting specific days or dates here -->
 
             <Button
                 android:layout_width="match_parent"

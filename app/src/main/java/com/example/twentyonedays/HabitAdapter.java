@@ -13,11 +13,14 @@ import java.util.ArrayList;
 
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder> {
 
+
+    private final RecyclerInterface recyclerInterface;
     Context context;
     ArrayList<HabitModel> habitmodel;
-    public HabitAdapter(Context context, ArrayList<HabitModel> habitmodel){
+    public HabitAdapter(Context context, ArrayList<HabitModel> habitmodel, RecyclerInterface recyclerInterface){
         this.context = context;
         this.habitmodel = habitmodel;
+        this.recyclerInterface = recyclerInterface;
     }
 
     @NonNull
@@ -25,7 +28,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
     public HabitAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.habit_template, parent, false);
-        return new HabitAdapter.MyViewHolder(view);
+        return new HabitAdapter.MyViewHolder(view,recyclerInterface);
     }
 
     @Override
@@ -43,13 +46,25 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, type, freq, num;
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerInterface recyclerInterface) {
             super(itemView);
 
             name = itemView.findViewById(R.id.Habit_name);
             type = itemView.findViewById(R.id.Habit_type);
             freq = itemView.findViewById(R.id.Habit_freq);
             num = itemView.findViewById(R.id.Habit_num);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerInterface != null){
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION){
+                            recyclerInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
 
 
         }

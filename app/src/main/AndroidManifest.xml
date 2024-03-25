@@ -16,6 +16,9 @@
         android:theme="@style/Theme.TwentyOneDays"
         tools:targetApi="31">
         <activity
+            android:name=".HabitDisplay"
+            android:exported="false" />
+        <activity
             android:name=".HabitList"
             android:exported="false" />
         <activity
