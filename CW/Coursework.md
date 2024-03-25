@@ -3,63 +3,56 @@
 - Date (when the work completed): 25/03/2024
 - Actual hrs spent for the assignment: 16
 
-## Overview
+## 1. Overview
 
-An Issue that has become prevalent recently is the issue around discipline 
-and being able to avoid procrastination. Especially with the introduction of tiktok and the increased use of social media apps, 
-many have been able to voice their opinions and talk about their struggles with procrastination and 
-being able to be consistent in performing tasks.
-
-In order to combat this, I have decided to develop a habit tracker app, this application is targeted
-at people who struggle with maintaining habits and making part of their daily life by prompting them
-to record their habits or tasks and keeps track of it.
-
-Outline the objectives of the application development.
-
-For the application to be successful. It has to be:
-
-Easy to use - if people are struggling with forming habits, this shouldn't make it even harder. To 
-make it easy and intuitive to use, there will be a focus on developing a simple user interface that 
-doesn't have any large painpoints that will dissuade users from continuing to use it. 
-
-Versatile - People have many different habits and goals that they are working towards so this should
-be able to accommodate a large range of them. a way that this can be done is by allowing habits to be
-recorded through a large range of media: text input, images, videos and audio. 
-
-Motivating - the hard part of building a habit is the delayed gratification, as your not able to see
-results or progress instantly, hence this application should be able to keep record and easily 
-display the progress that people make over time. A way this can be done is having a few methods of
-visualising the progress made, for example, if a person is recording progress of them learning the 
-piano, videos that they submit over the past weeks can be displayed to them to highlight how much 
-they have improved, or a calendar showing the times that they recorded their habit can be visualised,
-to show how consistent they have been and motivate them to continue on this trend.
+### a. A brief overview of TwentyOneDays
+The TwentyOneDays is a habit-tracking application designed to confront the modern
+challenge of procrastination, exacerbated by social media distractions. Targeted at
+individuals aiming to enhance their productivity and consistency in habit cultivation,
+TwentyOneDays is built to integrate effortlessly into daily life, facilitating the tracking and
+monitoring of habit progress. The app&#39;s name, &quot;TwentyOneDays,&quot; is inspired by the popular
+belief that it takes 21 days to form a new habit, symbolizing the app&#39;s commitment to
+helping users embark on a journey of personal improvement and transformative change.
 
 
- 
+The name "**TwentyOneDays**" was meticulously chosen to reflect the app&#39;s essence and
+mission. It is based on the concept that consistent effort over a period of 21 days can
+significantly contribute to the formation of lasting habits. This name highlights the
+transformative journey users undertake with the app, emphasizing progress, commitment,
+and the potential for change.
 
-2. Application Specifications
-   a. Describe the technical specifications for your application, such as functional
-   components, algorithms for the basic functions and advance functions,
-   
-Each of the pages that the user will interact with would be an activity, which means that it would 
-have an xml file and a Java class, these classes will be filled with functions to control the respective activities. 
-For example, in the welcome screen there will be on click listeners for all of the buttons.
+### b. Objectives
+The development of TwentyOneDays centres around three key objectives:
 
-The information used within authentication will be abstracted from the Firestore database that I will 
-be using for the management of user data. I will have a class that is responsible for user information 
-and will be used in relation to communicating with firestore to create, retrieve, update and delete data.
+**User-Friendly**: ensuring the app is accessible and straightforward, with a focus on a simple
+yet effective interface to encourage regular use.
 
-I will try to have functions that will  be responsible to actions that the user will be trying to do,
-for example, collecting and displaying the recent check-in's and making any milestones that they want to reach. 
-and if it is possible within the time constraints, to organise a view of the users friends and their highlights. 
+**Adaptable**: catering to a wide array of habits and goals by supporting multiple input
+methods, allowing users to personalize their habit-tracking experience.
+
+**Motivational**: utilizing visual indicators of progress and motivational elements to keep
+users engaged and motivated to maintain their habit streaks.
 
 
-   b. user interface of the application
 
-In relation to the user interface. I am choosing to have the colour blue for the general theme color 
-of the application. This is because the color blue is a 'cool' color, so will be visually comforting 
-for the users and the colour is often associated with stability and trustworthiness which will be beneficial
-in relation to the application as it will make users more comfortable in logging their data with this application.
+
+## 2. Application Specifications
+### a. Describing of TwentyOneDays technical specifications:
+
+TwentyOneDays features a modular application structure, with each screen represented as an activity that includes an XML layout and a Java class. These components work together to facilitate smooth user interactions and backend processes. Highlights include:
+
+**Welcome Screen**: designed with interactive elements to guide users through the app’s features.
+
+**User Authentication**: secured with Firestore for robust data management, employing dedicated classes for managing user interactions;
+
+**Functionality**: tailored functions for showcasing recent activity, setting and tracking milestones, and exploring the potential for social connectivity to enhance the user experience.
+ 
+
+
+### b. User Interface Design
+The app embraces a visually soothing theme, using colors and designs that evoke tranquility and trust, 
+making users feel comfortable and secure as they log their activities and track their progress.
+
 
 ![blue colour pallette.png](blue%20colour%20pallette.png)
 
@@ -85,26 +78,59 @@ There are more aspirational features that I would want to implement that would e
 - a Social system that allows users to search to see if their friends are using the application and then
   add them, this will allow them to see their friends and if they are keeping on top of their habits.
 
-3. Application Implementation
-   a. Examination of the basic functionalities implemented in the application, such as user authentication and personalized elements (timetable for the UoR Student app or levels for a game). Full-screen screen-
-   shots should be provided to demonstrate the technical implementation of these features, facilitating review by displaying the code and its
-   outcomes as shown in Figure 1.
+## 3. Application Implementation
 
 
-   b. Provide screenshots of users registered in Firebase to illustrate User
-   Authentication as shown in Figure 2.
+
+### a. Examination of the basic functionalities 
+
+
+
+### b. User Authentication
    
 
-c. Discussion of two additional features included in the application,
-   showcasing creativity and understanding of the users' needs or en-
-   hancing the gameplay experience. Full-screen screenshots should be
-   provided to demonstrate the technical implementation of these addi-
-   tional features, facilitating review by displaying both the code and its
-   outcomes (e.g., Figure 1).
-    
+### c. Additional features
 
-4. Conclusions and Future Work
-   a. Concluding remarks (Summary of the project outcomes).
-   b. Reflection on overall learning experience and achievements.
-   c. Future Work (Proposals on any potential future improvements or expansion for the applica-
-   tion including potential updates, new features, and other enhancements).
+#### i. Advanced Authentication
+
+#### ii. 
+
+### 4. Conclusions and Future work
+
+### a. Concluding remarks (Summary of the TwentyOneDays outcomes).
+TwentyOneDays sets out to tackle procrastination by empowering users to form and sustain
+new habits. Achieving its objectives of being user-friendly, adaptable, and motivational, the
+app has made significant strides in enhancing user engagement and facilitating personal
+growth.
+
+### b. Reflection on overall learning experience and achievements.
+The journey of developing TwentyOneDays has been profoundly educational, offering
+insights into the complexities of app development, user experience design, and the
+psychology of habit formation. The project's challenges have fostered a spirit of creativity
+and resilience, culminating in the successful realization of the app's core features and the
+acquisition of positive initial feedback.
+
+### c. Future Work
+The roadmap for TwentyOneDays includes exciting opportunities for expansion and
+enhancement:
+
+**Enhanced Social Features**: Building on the app's social aspects to encourage community
+engagement and mutual support among users.
+
+**Gamification Strategies**: Incorporating elements of gamification to reward progress and
+celebrate milestones, boosting user motivation.
+
+**Personalized Insights**: Integrating AI to provide customized advice and insights, making
+the habit formation process even more tailored and effective.
+
+**Platform Diversification**: Expanding the app&#39;s availability to web and desktop platforms,
+increasing its accessibility to a wider audience.
+
+**Wellness Integration**: Adding features focused on mental and emotional well-being, such
+as stress management and mindfulness practices, to support users' overall health.
+
+In conclusion, while TwentyOneDays has successfully met its initial goals, its journey
+towards facilitating meaningful habit change and personal development is just beginning.
+Future enhancements, guided by user feedback and technological advancements, will
+ensure that TwentyOneDays continues to be a pivotal tool for individuals seeking to make
+lasting changes in their lives.

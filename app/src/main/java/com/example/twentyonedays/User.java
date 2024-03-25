@@ -1,34 +1,25 @@
 package com.example.twentyonedays;
 
-import android.net.Uri;
-
 public class User {
 
-    String uid, email, firstName;
+    String uid;
+    String firstName;
     String[] friends;
 
 
-
-    public User(String uid, String email, String firstName) {
+    public User(String uid, String firstName) {
         this.uid = uid;
-        this.email = email;
         this.firstName = firstName;
     }
 
+
+    //region getters and setters
     public String getUid() {
         return uid;
     }
 
     public void setUid(String uid) {
         this.uid = uid;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFirstName() {
@@ -46,4 +37,5 @@ public class User {
     public void setFriends(String[] friends) {
         this.friends = friends;
     }
+    //endregion
 }

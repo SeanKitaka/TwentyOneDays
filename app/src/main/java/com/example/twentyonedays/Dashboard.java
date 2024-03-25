@@ -1,5 +1,6 @@
 package com.example.twentyonedays;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -23,6 +24,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.twentyonedays.databinding.ActivityDashboardBinding;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -33,19 +36,24 @@ public class Dashboard extends AppCompatActivity {
     private ActivityDashboardBinding binding;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
+    private FirebaseDatabase db;
+    DatabaseReference userRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.appBarDashboard.toolbar);
         binding.appBarDashboard.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(Dashboard.this, HabitSetup.class);
+                //intent.getStringExtra()
+                startActivity(intent);
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -66,29 +74,30 @@ public class Dashboard extends AppCompatActivity {
         TextView emailHeader = headerView.findViewById(R.id.textView); // Replace textView with the ID of your TextView
         TextView welcome = headerView.findViewById(R.id.welcomeText);
 
-// Update the image and text
-/*
-        imageView.setImageResource(); // Replace your_image with the drawable resource ID of your image
-*/
-        try {
-            String name = getIntent().getStringExtra("firstName");
-            String email = getIntent().getStringExtra("email");
-            String uid = getIntent().getStringExtra("googleId");
-            String image = getIntent().getStringExtra("image");
-            if (name != null) {
-                welcome.setText("Welcome back " + name);
-            }
-            if (email != null) {
-                emailHeader.setText(email);
-            }
-            if (image != null) {
-                Picasso.get().load(image).resize(200, 200).centerCrop().into(imageView);
-            }
 
-        } catch (NullPointerException e) {
-            // Handle null pointer exception
-            e.printStackTrace(); // For debugging purposes
+        String name = getIntent().getStringExtra("firstName");
+        String email = getIntent().getStringExtra("email");
+        String uid = getIntent().getStringExtra("googleId");
+        String image = getIntent().getStringExtra("image");
+        if (name != null) {
+            welcome.setText("Welcome back " + name);
         }
+        if (email != null) {
+            emailHeader.setText(email);
+        }
+        if (image != null) {
+            Picasso.get().load(image).resize(200, 200).centerCrop().into(imageView);
+        }
+
+
+
+        db = FirebaseDatabase.getInstance();
+        // getting the instance of the firestore Realtime Database
+
+        userRef = db.getReference("users");
+        // Accessing the users from this DB
+        User user = new User(uid,name);
+        userRef.child(user.uid).setValue(user);
 
     }
 
