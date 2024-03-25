@@ -1,10 +1,72 @@
 <resources>
     <string name="app_name">TwentyOneDays</string>
-        <string-array name="planets_array">
-            <item>Text</item>
-            <item>Video</item>
-            <item>Audio</item>
-            <item>Photo</item>
-            <item>File</item>
-        </string-array>
+    <string-array name="habit_types">
+        <item>Text</item>
+        <item>Video</item>
+        <item>Audio</item>
+        <item>Photo</item>
+        <item>File</item>
+    </string-array>
+
+    <string-array name="habit_frequency">
+        <item>Select</item>
+        <item>Daily</item>
+        <item>Every other day</item>
+        <item>Every week day</item>
+        <item>Every month</item>
+    </string-array>
+
+    <string-array name="test_habit_names">
+        <item>Learning french</item>
+        <item>Learning Spanish</item>
+        <item>revising</item>
+        <item>Learning piano</item>
+        <item>photo taking</item>
+        <item>getting better at art</item>
+        <item>Learning german</item>
+        <item>Learning cantonese</item>
+        <item>Learning dutch</item>
+        <item>Learning japanese</item>
+    </string-array>
+
+    <string-array name="test_habit_types">
+        <item>Text</item>
+        <item>Text</item>
+        <item>Text</item>
+        <item>Text</item>
+        <item>Text</item>
+        <item>Text</item>
+        <item>Text</item>
+        <item>Text</item>
+        <item>Text</item>
+        <item>Text</item>
+    </string-array>
+
+    <string-array name="test_habit_freq">
+        <item>Daily</item>
+        <item>Every other day</item>
+        <item>Daily</item>
+        <item>Daily</item>
+        <item>Every other day</item>
+        <item>Daily</item>
+        <item>Every other day</item>
+        <item>Daily</item>
+        <item>Every other day</item>
+        <item>Every other day</item>
+    </string-array>
+
+    <string-array name="test_habit_nums">
+        <item>2</item>
+        <item>15</item>
+        <item>20</item>
+        <item>21</item>
+        <item>36</item>
+        <item>45</item>
+        <item>23</item>
+        <item>4</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
+
+
 </resources>
