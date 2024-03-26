@@ -16,8 +16,10 @@ public class HabitList extends AppCompatActivity implements RecyclerInterface{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_list);
+
         RecyclerView recyclerView = findViewById(R.id.HabitListRecycler);
         setUpHabits();
+
         HabitAdapter adapter = new HabitAdapter(this, Habits, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
