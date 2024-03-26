@@ -158,8 +158,6 @@ public class HabitSetup extends AppCompatActivity {
         String desc = habitDescription.getText().toString();
         String timestamp = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         HabitModel HabitData = new HabitModel( name, desc, imageURL, timestamp,type,frequency,uid);
-        //We are changing the child from title to currentDate,
-        // because we will be updating title as well and it may affect child va lue.
 
         FirebaseDatabase.getInstance().getReference("users").child(uid).child("habits").push()
                 .setValue(HabitData).addOnCompleteListener(new OnCompleteListener<Void>() {
