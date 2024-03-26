@@ -1,8 +1,10 @@
 package com.example.twentyonedays;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -21,19 +23,30 @@ public class Drawer extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityDrawerBinding binding;
 
+    String Username;
+    String Name;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityDrawerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        Name = getIntent().getStringExtra("name");
+        Username = getIntent().getStringExtra("username");
+        TextView welcomeMsg = findViewById(R.id.welcomeTextView);
+        welcomeMsg.setText("Welcome " + Name);
         setSupportActionBar(binding.appBarDrawer.toolbar);
         binding.appBarDrawer.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(Drawer.this, HabitSetup.class);
+                intent.putExtra("username", Username);
+                startActivity(intent);
+
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
             }
         });
         DrawerLayout drawer = binding.drawerLayout;

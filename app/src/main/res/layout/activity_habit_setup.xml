@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -43,13 +43,24 @@
                 android:textColor="@color/lightblue"/>
 
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint ="Enter your habits name"
+                android:padding="10dp"
+                android:id="@+id/habit_Name"
+                android:background="@drawable/lightblueborder"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                android:textColor="@color/lightblue"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Habit type"
                 android:textSize="15sp"
                 android:layout_marginTop="20dp"
-
                 android:textAlignment="center"
                 android:textColor="@color/lightblue"/>
             <Spinner
@@ -58,8 +69,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/lightblueborder"
-                android:padding="8dp"/>
+                android:padding="10dp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload Image"
+                android:textSize="15sp"
+                android:textColor="@color/lightblue"
+                android:textAlignment="center"
+                android:layout_marginTop="20dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/choose_image"
+                android:src="@drawable/upload_sign"
+                android:layout_gravity="center_horizontal"
+               />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,7 +101,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/lightblueborder"
-                android:padding="8dp"/>
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="15sp"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:textColor="@color/lightblue"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your habit's description"
+                android:padding="10dp"
+                android:id="@+id/habit_description"
+                android:background="@drawable/lightblueborder"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                android:textColor="@color/lightblue"
+                android:inputType="textMultiLine"
+                android:minLines="3"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -90,4 +140,4 @@
 
     </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+</ScrollView>
