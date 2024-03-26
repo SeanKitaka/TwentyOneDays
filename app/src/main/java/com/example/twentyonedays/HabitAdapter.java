@@ -16,10 +16,10 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
 
     private final RecyclerInterface recyclerInterface;
     Context context;
-    ArrayList<HabitModel> habitmodel;
-    public HabitAdapter(Context context, ArrayList<HabitModel> habitmodel, RecyclerInterface recyclerInterface){
+    ArrayList<HabitModel> habitmodels;
+    public HabitAdapter(Context context, ArrayList<HabitModel> habitmodels, RecyclerInterface recyclerInterface){
         this.context = context;
-        this.habitmodel = habitmodel;
+        this.habitmodels = habitmodels;
         this.recyclerInterface = recyclerInterface;
     }
 
@@ -33,15 +33,15 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull HabitAdapter.MyViewHolder holder, int position) {
-        holder.name.setText(habitmodel.get(position).getHabitName());
-        holder.type.setText(habitmodel.get(position).getHabitType());
-        holder.freq.setText(habitmodel.get(position).getHabitFreq());
-        holder.num.setText(habitmodel.get(position).getHabitNum());
+        holder.name.setText(habitmodels.get(position).getHabitName());
+        holder.type.setText(habitmodels.get(position).getHabitType());
+        holder.freq.setText(habitmodels.get(position).getHabitFreq());
+        holder.num.setText(habitmodels.get(position).getHabitNum());
     }
 
     @Override
     public int getItemCount() {
-        return habitmodel.size();
+        return habitmodels.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

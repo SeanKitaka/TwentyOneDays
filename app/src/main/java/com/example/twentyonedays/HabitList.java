@@ -6,36 +6,66 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HabitList extends AppCompatActivity implements RecyclerInterface{
+public class HabitList extends AppCompatActivity implements RecyclerInterface {
 
-    ArrayList<HabitModel>Habits = new ArrayList<>();
+    ArrayList<HabitModel> Habits = new ArrayList<>();
+    DatabaseReference habitsRef;
+    HabitAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_list);
 
         RecyclerView recyclerView = findViewById(R.id.HabitListRecycler);
-        setUpHabits();
 
-        HabitAdapter adapter = new HabitAdapter(this, Habits, this);
+        adapter = new HabitAdapter(this, Habits, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        setUpHabits();
     }
 
-    private void setUpHabits(){
-        String[] habitNames = getResources().getStringArray(R.array.test_habit_names);
-        String[] habitTypes = getResources().getStringArray(R.array.test_habit_types);
-        String[] habitFrequencies = getResources().getStringArray(R.array.test_habit_freq);
-        String[] habitNums = getResources().getStringArray(R.array.test_habit_nums);
+    private void setUpHabits() {
+        // Get reference to the "habits" node under the current user's ID
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        habitsRef = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("habits");
 
-        for(int i = 0; i < habitNames.length; i++){
-            Habits.add(new HabitModel(habitNames[i], habitTypes[i], habitFrequencies[i], habitNums[i]));
-        }
+        // Add a ValueEventListener to fetch habit data from Firebase
+        habitsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Clear existing habits
+                Habits.clear();
 
+                // Iterate through each habit and add it to the list
+                for (DataSnapshot habitSnapshot : dataSnapshot.getChildren()) {
+                    HabitModel habit = habitSnapshot.getValue(HabitModel.class);
+                    if (habit != null) {
+                        Habits.add(habit);
+                    }
+                }
+
+                // Notify the adapter that the data set has changed
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("HabitList", "Error fetching habits from Firebase: " + databaseError.getMessage());
+            }
+        });
     }
 
     @Override

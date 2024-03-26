@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -17,6 +18,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.twentyonedays.databinding.ActivityDrawerBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Drawer extends AppCompatActivity {
 
@@ -24,7 +30,7 @@ public class Drawer extends AppCompatActivity {
     private ActivityDrawerBinding binding;
 
     String Username;
-    String Name;
+    String uid;
 
 
     @Override
@@ -33,16 +39,34 @@ public class Drawer extends AppCompatActivity {
 
         binding = ActivityDrawerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Name = getIntent().getStringExtra("name");
-        Username = getIntent().getStringExtra("username");
-        TextView welcomeMsg = findViewById(R.id.welcomeTextView);
-        welcomeMsg.setText("Welcome " + Name);
+
+        uid = getIntent().getStringExtra("uid");
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String username = snapshot.child(uid).child("username").getValue(String.class);
+                    TextView welcomeMsg = findViewById(R.id.welcomeTextView);
+                    welcomeMsg.setText("Welcome " + username);
+                } else {
+                    // Handle the case where the user data doesn't exist
+                    // You can display an error message or take appropriate action
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle database error
+            }
+        });
         setSupportActionBar(binding.appBarDrawer.toolbar);
         binding.appBarDrawer.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Drawer.this, HabitSetup.class);
                 intent.putExtra("username", Username);
+                intent.putExtra("uid", uid);
                 startActivity(intent);
 
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

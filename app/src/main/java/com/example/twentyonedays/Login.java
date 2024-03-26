@@ -1,128 +1,91 @@
 package com.example.twentyonedays;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.twentyonedays.Drawer;
+import com.example.twentyonedays.SignUp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
-    EditText editusername, editpassword;
-    TextView signupRedirectText;
-    Button loginBtn;
+    private static final String TAG = "Login";
+
+    private EditText editEmail, editPassword;
+    private Button loginBtn;
+    private TextView signUpRedirectTxt;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editusername = findViewById(R.id.login_username);
-        editpassword = findViewById(R.id.login_password);
+        editEmail = findViewById(R.id.login_Email);
+        editPassword = findViewById(R.id.login_password);
         loginBtn = findViewById(R.id.login_button);
-        signupRedirectText = findViewById(R.id.signupRedirectText);
+        signUpRedirectTxt = findViewById(R.id.signupRedirectText);
+
+        mAuth = FirebaseAuth.getInstance();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateUsername() | !validatePassword()){
-
-                }
-
-                else {
-                    checkUser();
-                }
+                signIn();
             }
         });
 
-        signupRedirectText.setOnClickListener(new View.OnClickListener() {
+        signUpRedirectTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this, SignUp.class);
-                startActivity(intent);
+                startActivity(new Intent(Login.this, SignUp.class));
             }
         });
-
     }
 
-    public Boolean validateUsername(){
-        String val = editusername.getText().toString();
-        if (val.isEmpty()){
-            editusername.setError("Email cannot be empty");
-            return false;
-        } else{
-            editusername.setError(null);
-            return true;
-        }
-    }
+    private void signIn() {
+        String email = editEmail.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
 
-    public Boolean validatePassword(){
-        String val = editpassword.getText().toString();
-        if (val.isEmpty()){
-            editpassword.setError("password cannot be empty");
-            return false;
-        } else{
-            editpassword.setError(null);
-            return true;
-        }
-    }
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            Toast.makeText(Login.this, "Authentication successful.",
+                                    Toast.LENGTH_SHORT).show();
+                            // Redirect to next activity
 
-    public void checkUser(){
-        String username = editusername.getText().toString().trim();
-        String Password = editpassword.getText().toString().trim();
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("username").equalTo(username);
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    editusername.setError(null);
-                    String passwordfromDB = snapshot.child(username).child("password").getValue(String.class);
-
-                    if(passwordfromDB != null && passwordfromDB.equals(Password)){
-
-                        String namefromDB = snapshot.child(username).child("name").getValue(String.class);
-                        String emailfromDB = snapshot.child(username).child("email").getValue(String.class);
-                        String usernamefromDB = snapshot.child(username).child("username").getValue(String.class);
-                        // Correct password
-                        Intent intent = new Intent(Login.this, Drawer.class);
-
-                        intent.putExtra("name", namefromDB);
-                        intent.putExtra("email", emailfromDB);
-                        intent.putExtra("username", usernamefromDB);
-                        intent.putExtra("password", passwordfromDB);
-
-                        startActivity(intent);
-                    } else{
-                        // Incorrect password
-                        editpassword.setError("Invalid Credentials");
-                        editpassword.requestFocus();
+                            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+                            String userID = mAuth.getUid();
+                            Intent intent = new Intent(Login.this, Drawer.class);
+                            intent.putExtra("uid", userID);
+                            startActivity(intent);
+                            finish(); // Finish current activity to prevent user from going back
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(Login.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-                else{
-                    // User doesn't exist
-                    editusername.setError("User doesn't exist");
-                    editusername.requestFocus();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle onCancelled
-            }
-        });
+                });
     }
-
 }

@@ -38,14 +38,17 @@ public class HabitSetup extends AppCompatActivity {
     ImageView uploadImage;
     Button makeHabitBtn;
 
-    String imageURL;
+    String imageURL,Type, Frequency;
     Uri uri;
+
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_setup);
 
+        uid = getIntent().getStringExtra("uid");
         habitName = findViewById(R.id.habit_Name);
         habitDescription = findViewById(R.id.habit_description);
         uploadImage = findViewById(R.id.choose_image);
@@ -109,7 +112,7 @@ public class HabitSetup extends AppCompatActivity {
     }
 
     public void saveData() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("files")
                 .child(uri.getLastPathSegment());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(HabitSetup.this);
@@ -147,13 +150,18 @@ public class HabitSetup extends AppCompatActivity {
     }
 
     public void uploadData(){
+        Spinner typeSpinner = findViewById(R.id.habit_type_spinner);
+        String type = typeSpinner.getSelectedItem().toString();
+        Spinner frequencySpinner = findViewById(R.id.habit_frequency_spinner);
+        String frequency = frequencySpinner.getSelectedItem().toString();
         String name = habitName.getText().toString();
         String desc = habitDescription.getText().toString();
-        HabitModel HabitData = new HabitModel( name, desc, imageURL);
+        String timestamp = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+        HabitModel HabitData = new HabitModel( name, desc, imageURL, timestamp,type,frequency,uid);
         //We are changing the child from title to currentDate,
-        // because we will be updating title as well and it may affect child value.
-        String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(currentDate)
+        // because we will be updating title as well and it may affect child va lue.
+
+        FirebaseDatabase.getInstance().getReference("users").child(uid).child("habits").push()
                 .setValue(HabitData).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
