@@ -5,12 +5,8 @@ public class HabitModel {
     String HabitType;
     String HabitFreq;
     String HabitNum;
-
     String HabitDesc;
-    String Habitimg;
-
     String timestamp;
-
     String uid;
 
 
@@ -21,17 +17,13 @@ public class HabitModel {
         HabitNum = habitNum;
     }
 
-    public HabitModel(String habitName, String habitDesc, String habitimg, String timeStamp,String habitType, String habitFreq, String UID) {
+    public HabitModel(String habitName, String habitType,String habitFreq, String habitDesc, String timeStamp) {
         HabitName = habitName;
         HabitDesc = habitDesc;
-        Habitimg = habitimg;
         HabitType = habitType;
         HabitFreq = habitFreq;
         timestamp = timeStamp;
-        uid = UID;
     }
-
-
 
     public String getHabitName() {
         return HabitName;
@@ -47,5 +39,17 @@ public class HabitModel {
 
     public String getHabitNum() {
         return HabitNum;
+    }
+
+    public String getHabitDesc() {
+        return HabitDesc;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setHabitNum(String s) {
+        HabitNum = s;
     }
 }

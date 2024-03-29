@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.twentyonedays.ui.home.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,10 +38,7 @@ public class HabitSetup extends AppCompatActivity {
     EditText habitName, habitDescription;
     ImageView uploadImage;
     Button makeHabitBtn;
-
-    String imageURL,Type, Frequency;
-    Uri uri;
-
+    String Type, Frequency;
     String uid;
 
     @Override
@@ -48,11 +46,14 @@ public class HabitSetup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_setup);
 
+        // loading in references to ui elements
         uid = getIntent().getStringExtra("uid");
         habitName = findViewById(R.id.habit_Name);
         habitDescription = findViewById(R.id.habit_description);
         uploadImage = findViewById(R.id.choose_image);
         makeHabitBtn = findViewById(R.id.create_habit_button);
+
+        //region spinners
         Spinner typeSpinner = findViewById(R.id.habit_type_spinner);
         Spinner frequencySpinner = findViewById(R.id.habit_frequency_spinner);
 
@@ -77,31 +78,7 @@ public class HabitSetup extends AppCompatActivity {
 
         freqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         frequencySpinner.setAdapter(freqAdapter);
-
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK){
-                            Intent data = result.getData();
-                            uri = data.getData();
-                            uploadImage.setImageURI(uri);
-                        } else {
-                            Toast.makeText(HabitSetup.this, "No Image Selected", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-        );
-
-        uploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent photoPicker = new Intent(Intent.ACTION_PICK);
-                photoPicker.setType("image/*");
-                activityResultLauncher.launch(photoPicker);
-            }
-        });
+        //endregion
 
         makeHabitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,59 +89,25 @@ public class HabitSetup extends AppCompatActivity {
     }
 
     public void saveData() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("files")
-                .child(uri.getLastPathSegment());
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(HabitSetup.this);
-        builder.setCancelable(false);
-        builder.setView(R.layout.progress_layout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        // Do something with the downloaded image URL
-                        String imageURL = uri.toString();
-                        uploadData();
-                        dialog.dismiss();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        dialog.dismiss();
-                        Toast.makeText(HabitSetup.this, "Failed to upload image URL", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                dialog.dismiss();
-                Toast.makeText(HabitSetup.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public void uploadData(){
-        Spinner typeSpinner = findViewById(R.id.habit_type_spinner);
-        String type = typeSpinner.getSelectedItem().toString();
-        Spinner frequencySpinner = findViewById(R.id.habit_frequency_spinner);
-        String frequency = frequencySpinner.getSelectedItem().toString();
+        //collecting the data to be saved about a habit
+        String type = ((Spinner) findViewById(R.id.habit_type_spinner)).getSelectedItem().toString();
+        String frequency = ((Spinner) findViewById(R.id.habit_frequency_spinner)).getSelectedItem().toString();
         String name = habitName.getText().toString();
         String desc = habitDescription.getText().toString();
         String timestamp = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        HabitModel HabitData = new HabitModel( name, desc, imageURL, timestamp,type,frequency,uid);
+        HabitModel HabitData = new HabitModel(name, type, frequency,desc,timestamp);
 
         FirebaseDatabase.getInstance().getReference("users").child(uid).child("habits").push()
                 .setValue(HabitData).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(HabitSetup.this, "Saved", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(HabitSetup.this, HomeFragment.class);
+                            intent.putExtra("uid", uid);
+                            startActivity(intent);
+
+                            finish();
                             finish();
                         }
                     }

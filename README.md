@@ -1,3 +1,4 @@
-This is a repository containing my work for my CS2PJ20 Spring coursework
-The new Coursework Document in `CS2PJ20_Spring_CW.pdf` Still a bit of a work in progress since I 
-am trying to add features
+This is my folder which contains the readme APK `HabitTracker.apk` and this
+readme file which directs to the apk, when generating the apk, the password used for the apk is "abcdefg" 
+i have also included the key that was made, in case it is needed for the appliction. I have also included
+the app folder which includes all of the source code and files used in the coursework
