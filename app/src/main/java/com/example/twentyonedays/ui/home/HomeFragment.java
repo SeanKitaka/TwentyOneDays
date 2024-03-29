@@ -1,6 +1,7 @@
 package com.example.twentyonedays.ui.home;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,12 +69,11 @@ public class HomeFragment extends Fragment implements RecyclerInterface {
                         String habitType = data.child("habitType").getValue(String.class);
                         String habitFreq = data.child("habitFreq").getValue(String.class);
                         String habitNum = data.child("habitNum").getValue(String.class);
-
+                        String habitDesc = data.child("habitDesc").getValue(String.class);
                         // Assuming timestamp is stored as a String
                         String timestamp = data.child("timestamp").getValue(String.class);
                         String daysDifference = calculateDaysDifference(timestamp);
-
-                        habits.add(new HabitModel(habitName, habitType, habitFreq, habitNum, daysDifference));
+                        habits.add(new HabitModel(habitName, habitType, habitFreq, habitDesc,timestamp));
                     }
                     adapter.notifyDataSetChanged();
                 } else {
@@ -102,7 +102,13 @@ public class HomeFragment extends Fragment implements RecyclerInterface {
 
     @Override
     public void onItemClick(int position) {
-        // Handle item click
+        Intent intent = new Intent( getActivity(), HabitDisplay.class);
+        intent.putExtra("habitName",habits.get(position).getHabitName());
+        intent.putExtra("habitType",habits.get(position).getHabitType());
+        intent.putExtra("habitFreq",habits.get(position).getHabitFreq());
+        intent.putExtra("habitNum",habits.get(position).getHabitNum());
+        intent.putExtra("habitDesc",habits.get(position).getHabitDesc());
+        startActivity(intent);
     }
 
     @Override
