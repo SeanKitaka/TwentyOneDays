@@ -65,15 +65,15 @@ public class HomeFragment extends Fragment implements RecyclerInterface {
                 if (snapshot.exists()) {
                     habits.clear();
                     for (DataSnapshot data : snapshot.getChildren()) {
+                        String habitUID = data.getKey();
                         String habitName = data.child("habitName").getValue(String.class);
                         String habitType = data.child("habitType").getValue(String.class);
                         String habitFreq = data.child("habitFreq").getValue(String.class);
                         String habitNum = data.child("habitNum").getValue(String.class);
                         String habitDesc = data.child("habitDesc").getValue(String.class);
-                        // Assuming timestamp is stored as a String
                         String timestamp = data.child("timestamp").getValue(String.class);
                         String daysDifference = calculateDaysDifference(timestamp);
-                        habits.add(new HabitModel(habitName, habitType, habitFreq, habitDesc,timestamp));
+                        habits.add(new HabitModel(habitUID,habitName, habitType, habitFreq, habitDesc,timestamp));
                     }
                     adapter.notifyDataSetChanged();
                 } else {
@@ -104,6 +104,7 @@ public class HomeFragment extends Fragment implements RecyclerInterface {
     public void onItemClick(int position) {
         Intent intent = new Intent( getActivity(), HabitDisplay.class);
         intent.putExtra("habitName",habits.get(position).getHabitName());
+        intent.putExtra("habitUID",habits.get(position).getUID());
         intent.putExtra("habitType",habits.get(position).getHabitType());
         intent.putExtra("habitFreq",habits.get(position).getHabitFreq());
         intent.putExtra("habitNum",habits.get(position).getHabitNum());

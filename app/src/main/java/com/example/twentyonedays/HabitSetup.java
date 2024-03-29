@@ -50,7 +50,6 @@ public class HabitSetup extends AppCompatActivity {
         uid = getIntent().getStringExtra("uid");
         habitName = findViewById(R.id.habit_Name);
         habitDescription = findViewById(R.id.habit_description);
-        uploadImage = findViewById(R.id.choose_image);
         makeHabitBtn = findViewById(R.id.create_habit_button);
 
         //region spinners
